@@ -1,4 +1,4 @@
 class Question < ActiveRecord::Base
-	has_many :answer
-	validates_presence_of :topic, :text
+	has_many :answers, dependent: :destroy
+	validates :topic, :text, presence: true
 end
