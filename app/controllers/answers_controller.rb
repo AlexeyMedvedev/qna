@@ -8,7 +8,7 @@ class AnswersController < ApplicationController
 
 	def create
 	  #@question = Question.find(params[:question_id])
-      @answer = @question.answers.create(answers_params)
+      @answer = @question.answers.new(answers_params)
       if @answer.save
         redirect_to question_answers_path(@question)
       else
