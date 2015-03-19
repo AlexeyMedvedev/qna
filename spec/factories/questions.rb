@@ -5,6 +5,6 @@ FactoryGirl.define do
   end
   factory :invalid_question, class: "Question" do
     title nil
-    body nil
+    text nil
   end
 end
