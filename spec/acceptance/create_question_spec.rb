@@ -6,13 +6,20 @@ feature 'Create question', %q{
   able to create question
 }do 
 
-  scenario 'Authentified_User able create new question'do
-    User.create!(email: 'reguser@fake.ru', password: '12345678')
+  given(:user){ create(:user) }
 
-    visit new_user_session_path
-    fill_in 'Email', with: 'reguser@fake.ru'
-    fill_in 'Password', with: '12345678'
-    click_on 'Log in'
+  scenario 'Authentified_User able create new question'do
+    #User.create!(email: 'reguser@fake.ru', password: '12345678')
+
+    #visit new_user_session_path
+    #fill_in 'Email', with: 'reguser@fake.ru'
+    #fill_in 'Password', with: '12345678'
+
+    #fill_in 'Email', with: user.email
+    #fill_in 'Password', with: user.password
+    
+    #click_on 'Log in'
+    sign_in(user)
 
     visit questions_path
     click_on 'Create new question'

@@ -5,15 +5,23 @@ feature 'User sign-in', %q{
   as Guest_User
   Guest_User able to sign-in
 }do
+
+  given(:user){ create(:user) }
   
   scenario 'Registred user try to sign-in' do
-    User.create!(email: 'reguser@fake.ru', password: '12345678')
+    #User.create!(email: 'reguser@fake.ru', password: '12345678')
 
-    visit new_user_session_path
-    fill_in 'Email', with: 'reguser@fake.ru'
-    fill_in 'Password', with: '12345678'
+    #visit new_user_session_path
+    #fill_in 'Email', with: 'reguser@fake.ru'
+    #fill_in 'Password', with: '12345678'
+    
+    #fill_in 'Email', with: user.email
+    #fill_in 'Password', with: user.password
+
     #save_and_open_page
-    click_on 'Log in'
+    #click_on 'Log in'
+    sign_in(user)
+
 
     expect(page).to have_content 'Signed in successfully.'
     expect(current_path).to eq root_path
