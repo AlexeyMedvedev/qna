@@ -1,1 +1,9 @@
+h1 All questions
+
 p = link_to 'Create new question', new_question_path
+
+ul
+- @questions.each do |q|
+  li = link_to q.topic, q
+
+
