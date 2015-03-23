@@ -1,0 +1,15 @@
+h1= @question.topic
+h2= @question.text
+
+.answers
+  h3 Answers
+  ul
+  - @question.answers.each do |answer|
+    li= answer.text
+
+- if current_user
+  .answer_new
+    = form_for [@question, @answer], remote: true do |f|
+      = f.label :text, 'Answer'
+      = f.text_area :text
+      = f.submit 'Add'
