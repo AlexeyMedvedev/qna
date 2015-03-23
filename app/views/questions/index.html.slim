@@ -1,6 +1,15 @@
+- if user_signed_in? 
+  = link_to 'Sign out', destroy_user_session_path, method: :delete
+- else
+  = link_to 'Sign in', new_user_session_path
+br
+
 h1 All questions
 
-p = link_to 'Create new question', new_question_path
+- if user_signed_in? 
+  p = link_to 'Create new question', new_question_path
+- else
+  p You need to sign in or sign up before continuing.
 
 ul
 - @questions.each do |q|

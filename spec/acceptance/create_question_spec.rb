@@ -32,7 +32,7 @@ feature 'Create question', %q{
 
   scenario 'Unauthentified_User able create new question'do
     visit questions_path
-    click_on 'Create new question'
+    #click_on 'Create new question'
 
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
   end
