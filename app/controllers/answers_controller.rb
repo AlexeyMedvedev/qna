@@ -18,6 +18,16 @@ class AnswersController < ApplicationController
       end
    	end
 
+  def destroy
+    if @answer.user_id == current_user.id
+      @answer.destroy
+      flash[:notice] = 'Answer successfully deleted.'
+    else
+      flash[:notice] = 'You cant delete this question.'
+    end
+    redirect_to @answer.question
+  end
+
 	private
 
 	def get_question

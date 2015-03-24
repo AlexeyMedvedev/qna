@@ -17,6 +17,8 @@ feature 'Question answers show', %q{
     expect(page).to have_content question.text
     expect(page).to have_content answer1.text
     expect(page).to have_content answer2.text
+
+    #save_and_open_page
   end
 
 end

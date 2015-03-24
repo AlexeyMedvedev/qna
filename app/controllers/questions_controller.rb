@@ -35,6 +35,7 @@ class QuestionsController < ApplicationController
     redirect_to questions_path
   end
 
+  
 
 private
 
