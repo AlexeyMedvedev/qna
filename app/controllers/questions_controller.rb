@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :load_question, only: [:show, :edit, :update, :destroy]
 
   def new
       @question = Question.new
@@ -19,12 +21,29 @@ class QuestionsController < ApplicationController
 	end
 
 	def show
-      @question = Question.find(params[:id])
+      #@question = Question.find(params[:id])
+      @answer = @question.answers.new
 	end
+
+  def destroy
+    if @question.user_id == current_user.id
+      @question.destroy
+      flash[:notice] = 'You question successfully deleted.'
+    else
+      flash[:notice] = 'You cant delete this question.'
+    end
+    redirect_to questions_path
+  end
+
+  
 
 private
 
-    def question_params
-      params.require(:question).permit(:topic, :text)
-    end
+  def load_question
+    @question = Question.find(params[:id])
+  end
+
+  def question_params
+    params.require(:question).permit(:topic, :text)
+  end
 end

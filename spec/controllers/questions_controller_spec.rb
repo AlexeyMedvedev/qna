@@ -39,6 +39,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
+    sign_in_user
     before {get :new}
 
     it 'set question to @question' do
@@ -51,6 +52,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
+    sign_in_user
   	context 'valid attr' do
       it 'save new question' do
         expect {post :create, question: attributes_for(:question)}.to change(Question, :count).by(1)
