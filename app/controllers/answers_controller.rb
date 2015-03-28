@@ -12,7 +12,9 @@ class AnswersController < ApplicationController
 	  #@question = Question.find(params[:question_id])
       @answer = @question.answers.new(answers_params)
       if @answer.save
-        redirect_to @question
+        #теперь тут вызывается create.js.erb
+        #redirect_to @question
+        #redirect_to question_path(@answer.question)
       else
         render :new
       end
