@@ -6,7 +6,8 @@ feature 'Create question', %q{
   able to create question
 }do 
 
-  given(:user){ create(:user) }
+  given(:user) { create(:user) }
+  given(:question) { create(:question) }
 
   scenario 'Authentified_User able create new question'do
     #User.create!(email: 'reguser@fake.ru', password: '12345678')
@@ -23,11 +24,13 @@ feature 'Create question', %q{
 
     visit questions_path
     click_on 'Create new question'
-    fill_in 'Topic', with: 'Question 1'
-    fill_in 'Text', with: 'Text 1'
+    fill_in 'Topic', with: question.topic
+    fill_in 'Text', with: question.text
     click_on 'Create'
 
     expect(page).to have_content 'Your question successfully created.'
+    expect(page).to have_content question.topic
+    expect(page).to have_content question.text
   end
 
   scenario 'Unauthentified_User able create new question'do
