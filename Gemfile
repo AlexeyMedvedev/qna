@@ -45,6 +45,7 @@ group :development, :test do
 end
 
 gem 'slim-rails'
+gem 'devise'
 
 group :test, :development do
   gem 'rspec-rails'
@@ -54,4 +55,5 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'launchy'
 end

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   describe 'GET #new' do
+    sign_in_user
     before do
     	question = FactoryGirl.create(:question)
     	get :new, question_id: question
@@ -17,6 +18,7 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'POST #create' do
+    sign_in_user
     let(:question) { create(:question) }
     context 'valid attr' do
       it 'save new answer' do
@@ -24,7 +26,7 @@ RSpec.describe AnswersController, type: :controller do
       
       it 'redirect to show' do
         post :create, question_id: question, answer: attributes_for(:answer)
-        expect(response).to redirect_to question_answers_path(assigns(:question))
+        expect(response).to redirect_to question_path(assigns(:question))
       end
     end
     context 'invalid attr' do
