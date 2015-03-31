@@ -3,14 +3,11 @@ h1= @question.topic
   p= link_to 'Delete', question_path, method: :delete
 h2= @question.text
 
-.answers
-  h3 Answers
-  
-- @question.answers.each do |answer|
-  p= answer.text
-  - if current_user && answer.user_id == current_user.id
-    small= link_to 'Delete answer', question_answer_path(@question, answer.id), method: :delete
-   
+h3 Answers
+
+.answers  
+  = render 'answers'
+
 - if current_user
   .answer_new
     = form_for [@question, @answer], remote: true do |f|
