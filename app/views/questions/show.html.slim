@@ -12,5 +12,6 @@ h3 Answers
   .answer_new
     = form_for [@question, @answer], remote: true do |f|
       = f.label :text, 'Answer'
+      .answer-errors
       = f.text_area :text
       = f.submit 'Add'

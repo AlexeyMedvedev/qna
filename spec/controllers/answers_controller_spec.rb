@@ -22,7 +22,8 @@ RSpec.describe AnswersController, type: :controller do
     let(:question) { create(:question) }
     context 'valid attr' do
       it 'save new answer' do
-        expect {post :create, question_id: question, answer: attributes_for(:answer), format: :js }.to change(question.answers, :count).by(1)      end
+        expect {post :create, question_id: question, answer: attributes_for(:answer), format: :js }.to change(question.answers, :count).by(1)
+      end
       
       it 'redirect to show' do
         post :create, question_id: question, answer: attributes_for(:answer), format: :js 
@@ -37,7 +38,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'to new view' do
         post :create, question_id: question, answer: attributes_for(:invalid_answer), format: :js 
-        expect(response).to render_template :new
+        expect(response).to render_template :create
       end
    
     end 
