@@ -9,7 +9,7 @@ class AnswersController < ApplicationController
 	end
 
 	def create
-	  #@question = Question.find(params[:question_id])
+	    #@question = Question.find(params[:question_id])
       @answer = @question.answers.new(answers_params)
       @answer.save
       #if @answer.save
@@ -20,6 +20,11 @@ class AnswersController < ApplicationController
       #  render :new
       #end
    	end
+
+  def update
+    @answer = Answer.find(params[:id])
+    @answer.update(answers_params)
+  end
 
   def destroy
     if @answer.user_id == current_user.id
