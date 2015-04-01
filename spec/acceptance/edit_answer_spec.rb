@@ -7,13 +7,24 @@ feature 'Answer editing', %q{
 }do
   
   given(:user) {create(:user)}
+  given(:anuser){create(:user)}
   given(:question){ create(:question)}
   given!(:answer){ create(:answer, question: question, user: user) }
 
   scenario 'Unauth try to edit' do
     visit question_path(question)
+    within '.answers' do
+      expect(page).to_not have_link 'Edit'
+    end
+  end
 
-    expect(page).to_not have_link 'Edit'
+  scenario 'Auth user try to edit other user answer' do
+    sign_in(anuser)
+    visit question_path(question)
+
+    within '.answers' do
+      expect(page).to_not have_link 'Edit'
+    end
   end
 
   describe 'Auth user' do
@@ -24,7 +35,7 @@ feature 'Answer editing', %q{
 
     scenario 'see link to edit' do
     
-      save_and_open_page
+      #save_and_open_page
       within '.answers' do
         expect(page).to have_link 'Edit'
       end
