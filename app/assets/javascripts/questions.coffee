@@ -8,4 +8,11 @@ editAnswerFunction = (e) ->
   answer_id = $(this).data('answerId');
   $('form#edit-answer-' + answer_id).show();
 
+editQuestionFunction = (e) ->
+  e.preventDefault();
+  $(this).hide();
+  # question_id = $(this).data('questionId');
+  $('form#edit-question').show();
+
 $(document).on 'click', '.answers .edit-answer-link', editAnswerFunction
+$(document).on 'click', '.question .edit-question-link', editQuestionFunction

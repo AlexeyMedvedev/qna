@@ -1,0 +1,15 @@
+h1= @question.topic
+h2= @question.text
+
+- if (current_user) 
+  p= link_to 'Edit', '', class: 'edit-question-link'
+  p
+    = form_for [@question], remote: true, html: { id: "edit-question"} do |f|
+      = f.label :topic
+      = f.text_field :topic
+      = f.label :text
+      = f.text_area :text
+      = f.submit 'Save'
+
+- if (current_user) && (current_user.id == @question.user_id)
+  p= link_to 'Delete', question_path, method: :delete

@@ -18,14 +18,14 @@ feature 'Answer editing', %q{
     end
   end
 
-  scenario 'Auth user try to edit other user answer' do
-    sign_in(anuser)
-    visit question_path(question)
+ # scenario 'Auth user try to edit other user answer' do
+ #   sign_in(anuser)
+ #   visit question_path(question)
 
-    within '.answers' do
-      expect(page).to_not have_link 'Edit'
-    end
-  end
+ #   within '.answers' do
+ #     expect(page).to_not have_link 'Edit'
+ #   end
+ # end
 
   describe 'Auth user' do
     before do
@@ -42,8 +42,8 @@ feature 'Answer editing', %q{
     end
 
     scenario 'edit answer', js: true do
-      click_on 'Edit'
       within '.answers' do
+        click_on 'Edit'
         fill_in 'Answer', with: 'Edited answer'
         click_on 'Save'
         expect(page).to_not have_content answer.text

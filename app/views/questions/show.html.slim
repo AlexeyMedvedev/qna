@@ -1,7 +1,5 @@
-h1= @question.topic
-- if (current_user) && (current_user.id == @question.user_id)
-  p= link_to 'Delete', question_path, method: :delete
-h2= @question.text
+.question
+  = render 'question'
 
 h3 Answers
 

@@ -1,6 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
+
+  describe 'PATCH #update' do
+
+    sign_in_user
+    let(:question) {create(:question)}
+
+    it 'assings the requested question to @question' do
+      patch :update, id: question, question: attributes_for(:question), format: :js
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'changes question attributes' do
+      patch :update, id: question, question: { topic: 'new topic', text: 'new text'}, format: :js
+      question.reload
+      expect(question.text).to eq 'new text'
+      expect(question.topic).to eq 'new topic'
+    end
+
+    it 'render update template' do
+      patch :update, id: question, question: attributes_for(:question), format: :js
+      expect(response).to render_template :update
+    end
+  end
+
   describe 'GET #index' do
   	let(:questions) {create_list(:question, 2)}
   	before do
@@ -82,4 +106,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
+
+
+
 end
