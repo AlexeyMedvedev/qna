@@ -37,6 +37,10 @@ class AnswersController < ApplicationController
     #redirect_to @answer.question
   end
 
+  def accept
+    @answer.accept
+  end
+
 	private
 
 	def get_question
@@ -45,9 +49,10 @@ class AnswersController < ApplicationController
 
   def get_answer
     @answer = @question.answers.find(params[:id])
+    #@answer = Answer.find_by!(question_id: params[:question_id], id: params[:id])
   end
 
 	def answers_params
-      params.require(:answer).permit(:text)
+    params.require(:answer).permit(:text)
 	end 
 end
