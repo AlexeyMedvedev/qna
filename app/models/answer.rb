@@ -10,4 +10,6 @@ class Answer < ActiveRecord::Base
       update(accepted: true)
     end
   end
+
+  scope :by_best, -> { order('accepted DESC') }
 end

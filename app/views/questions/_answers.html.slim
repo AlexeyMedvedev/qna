@@ -1,4 +1,4 @@
-- @question.answers.each do |answer|
+- @question.answers.by_best.each do |answer|
   - if answer.persisted?
     div class=(answer.accepted == true ? "answer-accept" : "answer-regilar")
       p= answer.text
