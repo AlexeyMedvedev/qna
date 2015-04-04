@@ -3,9 +3,20 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   let!(:question) { create(:question) }
 
+  describe "DELETE destroy" do
+    let(:user){ create(:user)}
+    let!(:answer) { create(:answer, question: question, user: user) }
+    before {sign_in(user)}
+
+    it 'assings the requested answer to @answer' do
+      expect {delete :destroy, id: answer, question_id: question, format: :js}.to change(Answer, :count).by(-1)  
+    end
+  end
+
   describe 'PATCH #update' do
-    sign_in_user
-    let(:answer) { create(:answer, question: question) }
+    let(:user){ create(:user)}
+    let(:answer) { create(:answer, question: question, user: user) }
+    before {sign_in(user)}
 
     it 'assings the requested answer to @answer' do
       patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
@@ -30,7 +41,8 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'GET #new' do
-    sign_in_user
+    let(:user){ create(:user)}
+    before {sign_in(user)}
     before do
     	question = FactoryGirl.create(:question)
     	get :new, question_id: question
@@ -46,7 +58,8 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'POST #create' do
-    sign_in_user
+    let(:user){ create(:user)}
+    before {sign_in(user)}
     context 'valid attr' do
       it 'save new answer' do
         expect {post :create, question_id: question, answer: attributes_for(:answer), format: :js }.to change(question.answers, :count).by(1)

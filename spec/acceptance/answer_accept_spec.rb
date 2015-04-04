@@ -11,14 +11,27 @@ feature 'Select accept', %q{
   given(:question){ create(:question)}
   given!(:answer){ create(:answer, question: question, user: user) }
   
-  scenario 'Author see best link'do
+  scenario 'Author see best link', js: true do
     sign_in(user)
     visit question_path(question)
-    expect(page).to have_link 'Edit'
+    expect(page).to have_link 'Best'
   end
 
-  scenario 'Author select answer as best' do
+  scenario 'Author select answer as best', js: true do
     sign_in(user)
     visit question_path(question)
+    within '.answers' do
+
+      click_on 'Best'
+      expect(page).to have_selector '.answer-accept '
+    end
+  end
+
+  scenario 'Unauth user try to edit', js: true do
+    visit question_path(question)
+
+    within '.answers' do
+      expect(page).to_not have_link 'Best'
+    end
   end
 end

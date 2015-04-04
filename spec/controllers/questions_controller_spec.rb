@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe QuestionsController, type: :controller do
 
   describe 'PATCH #update' do
-
-    sign_in_user
+    let(:user){ create(:user)}
+    before {sign_in(user)}
     let(:question) {create(:question)}
 
     it 'assings the requested question to @question' do
@@ -70,7 +70,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
-    sign_in_user
+    let(:user){ create(:user)}
+    before {sign_in(user)}
     before {get :new}
 
     it 'set question to @question' do
@@ -83,7 +84,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
-    sign_in_user
+    let(:user){ create(:user)}
+    before {sign_in(user)}
   	context 'valid attr' do
       it 'save new question' do
         expect {post :create, question: attributes_for(:question)}.to change(Question, :count).by(1)

@@ -51,11 +51,12 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
-  gem 'database_cleaner'
   #gem 'selenium-webdriver'
-  gem 'capybara-webkit' # вместо силениума используем вебкит
+  gem 'pry-byebug'
 end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'database_cleaner'
+  gem 'capybara-webkit' # вместо силениума используем вебкит
 end

@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :get_question
-    before_action :get_answer, only: [:edit, :update, :destroy]
+    before_action :get_answer, only: [:edit, :update, :destroy, :accept]
 
 	def new
 		#@question = Question.find(params[:question_id])
@@ -11,6 +11,7 @@ class AnswersController < ApplicationController
 	def create
 	    #@question = Question.find(params[:question_id])
       @answer = @question.answers.new(answers_params)
+      @answer.user = current_user
       @answer.save
       #if @answer.save
         #теперь тут вызывается create.js.erb
@@ -27,6 +28,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    #binding.pry
     @answer.destroy
     #if @answer.user == current_user
     #  @answer.destroy
@@ -49,7 +51,6 @@ class AnswersController < ApplicationController
 
   def get_answer
     @answer = @question.answers.find(params[:id])
-    #@answer = Answer.find_by!(question_id: params[:question_id], id: params[:id])
   end
 
 	def answers_params
