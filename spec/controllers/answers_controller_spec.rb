@@ -3,14 +3,21 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   let!(:question) { create(:question) }
 
-  describe "DELETE destroy" do
+  describe "DELETE #destroy" do
     let(:user){ create(:user)}
     let!(:answer) { create(:answer, question: question, user: user) }
-    before {sign_in(user)}
 
-    it 'assings the requested answer to @answer' do
+    it 'deleted answer by user created' do
+      sign_in(user)
       expect {delete :destroy, id: answer, question_id: question, format: :js}.to change(Answer, :count).by(-1)  
     end
+
+    it 'not deleted answer by another user created' do
+      anuser = create(:user)
+      sign_in(anuser)
+      expect {delete :destroy, id: answer, question_id: question, format: :js}.to change(Answer, :count).by(0)  
+    end
+
   end
 
   describe 'PATCH #update' do

@@ -2,6 +2,22 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
 
+  describe 'DELETE #destroy' do
+    let(:user){ create(:user)}
+    let!(:question) {create(:question, user: user)}
+
+    it 'deleted own question' do
+      sign_in(user)
+      expect {delete :destroy, id: question}.to change(Question, :count).by(-1)
+    end
+
+    it 'not deleted another user question' do
+      anuser = create(:user)
+      sign_in(anuser)
+      expect {delete :destroy, id: question}.to_not change(Question, :count)
+    end
+  end
+
   describe 'PATCH #update' do
     let(:user){ create(:user)}
     before {sign_in(user)}

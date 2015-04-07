@@ -29,13 +29,13 @@ class AnswersController < ApplicationController
 
   def destroy
     #binding.pry
-    @answer.destroy
-    #if @answer.user == current_user
-    #  @answer.destroy
-    #  flash[:notice] = 'Answer successfully deleted.'
+    #@answer.destroy
+    if @answer.user == current_user
+      @answer.destroy
+      #  flash[:notice] = 'Answer successfully deleted.'
     #else
-    #  flash[:notice] = 'You cant delete this answer.'
-    #end
+      #  flash[:notice] = 'You cant delete this answer.'
+    end
     #redirect_to @answer.question
   end
 
