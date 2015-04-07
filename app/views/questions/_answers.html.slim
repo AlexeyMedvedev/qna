@@ -1,6 +1,6 @@
 - @question.answers.by_best.each do |answer|
   - if answer.persisted?
-    div class=(answer.accepted == true ? "answer-accept" : "answer-regilar")
+    div class=(answer.accepted == true ? "answer-accept" : "answer-regular")
       p= answer.text
 
       - if current_user && answer.user_id == current_user.id

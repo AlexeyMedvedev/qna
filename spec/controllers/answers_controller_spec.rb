@@ -3,6 +3,23 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   let!(:question) { create(:question) }
 
+  describe "POST #accept" do
+    let(:user){ create(:user)}
+    let(:answer) { create(:answer, question: question, user: user) }
+
+    it 'accept able to author' do
+      sign_in(user)
+      expect { post :accept, question_id: question, id: answer, format: :js}.to change { answer.reload.accepted }.from(false).to(true)
+    end
+
+    it 'accept unable to another user' do
+      anuser = create(:user)
+      sign_in(anuser)
+      expect { post :accept, question_id: question, id: answer, format: :js}.to_not change { answer.reload.accepted }
+    end
+
+  end
+
   describe "DELETE #destroy" do
     let(:user){ create(:user)}
     let!(:answer) { create(:answer, question: question, user: user) }
@@ -90,4 +107,5 @@ RSpec.describe AnswersController, type: :controller do
    
     end 
   end
+
 end

@@ -40,7 +40,9 @@ class AnswersController < ApplicationController
   end
 
   def accept
-    @answer.accept
+    if @answer.user == current_user
+      @answer.accept
+    end
   end
 
 	private
