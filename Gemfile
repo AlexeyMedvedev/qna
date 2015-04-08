@@ -44,7 +44,8 @@ group :development, :test do
 end
 
 gem 'slim-rails'
-gem 'devise'
+gem 'devise' #авторизация
+gem 'carrierwave' #для прикрепления файлов
 
 group :test, :development do
   gem 'rspec-rails'
