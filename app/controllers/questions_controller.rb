@@ -8,6 +8,7 @@ class QuestionsController < ApplicationController
 
 	def create
       @question = Question.new(question_params)
+      @question.user = current_user
       if @question.save
         flash[:notice] = 'Your question successfully created.'
         redirect_to @question
@@ -35,7 +36,10 @@ class QuestionsController < ApplicationController
     redirect_to questions_path
   end
 
-  
+  def update
+    @question = Question.find(params[:id])
+    @question.update(question_params)
+  end
 
 private
 

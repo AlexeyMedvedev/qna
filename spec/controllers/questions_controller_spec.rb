@@ -1,6 +1,46 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
+
+  describe 'DELETE #destroy' do
+    let(:user){ create(:user)}
+    let!(:question) {create(:question, user: user)}
+
+    it 'deleted own question' do
+      sign_in(user)
+      expect {delete :destroy, id: question}.to change(Question, :count).by(-1)
+    end
+
+    it 'not deleted another user question' do
+      anuser = create(:user)
+      sign_in(anuser)
+      expect {delete :destroy, id: question}.to_not change(Question, :count)
+    end
+  end
+
+  describe 'PATCH #update' do
+    let(:user){ create(:user)}
+    before {sign_in(user)}
+    let(:question) {create(:question)}
+
+    it 'assings the requested question to @question' do
+      patch :update, id: question, question: attributes_for(:question), format: :js
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'changes question attributes' do
+      patch :update, id: question, question: { topic: 'new topic', text: 'new text'}, format: :js
+      question.reload
+      expect(question.text).to eq 'new text'
+      expect(question.topic).to eq 'new topic'
+    end
+
+    it 'render update template' do
+      patch :update, id: question, question: attributes_for(:question), format: :js
+      expect(response).to render_template :update
+    end
+  end
+
   describe 'GET #index' do
   	let(:questions) {create_list(:question, 2)}
   	before do
@@ -46,7 +86,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
-    sign_in_user
+    let(:user){ create(:user)}
+    before {sign_in(user)}
     before {get :new}
 
     it 'set question to @question' do
@@ -59,7 +100,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
-    sign_in_user
+    let(:user){ create(:user)}
+    before {sign_in(user)}
   	context 'valid attr' do
       it 'save new question' do
         expect {post :create, question: attributes_for(:question)}.to change(Question, :count).by(1)
@@ -82,4 +124,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
+
+
+
 end

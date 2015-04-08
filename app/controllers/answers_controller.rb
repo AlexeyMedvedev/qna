@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :get_question
-    before_action :get_answer, only: [:edit, :update, :destroy]
+    before_action :get_answer, only: [:edit, :update, :destroy, :accept]
 
 	def new
 		#@question = Question.find(params[:question_id])
@@ -9,8 +9,10 @@ class AnswersController < ApplicationController
 	end
 
 	def create
-	  #@question = Question.find(params[:question_id])
+	    #@question = Question.find(params[:question_id])
       @answer = @question.answers.new(answers_params)
+      @answer.user = current_user
+      @answer.save
       #if @answer.save
         #теперь тут вызывается create.js.erb
         #redirect_to @question
@@ -20,14 +22,27 @@ class AnswersController < ApplicationController
       #end
    	end
 
+  def update
+    @answer = Answer.find(params[:id])
+    @answer.update(answers_params)
+  end
+
   def destroy
-    if @answer.user_id == current_user.id
+    #binding.pry
+    #@answer.destroy
+    if @answer.user == current_user
       @answer.destroy
-      flash[:notice] = 'Answer successfully deleted.'
-    else
-      flash[:notice] = 'You cant delete this question.'
+      #  flash[:notice] = 'Answer successfully deleted.'
+    #else
+      #  flash[:notice] = 'You cant delete this answer.'
     end
-    redirect_to @answer.question
+    #redirect_to @answer.question
+  end
+
+  def accept
+    if @answer.user == current_user
+      @answer.accept
+    end
   end
 
 	private
@@ -41,6 +56,6 @@ class AnswersController < ApplicationController
   end
 
 	def answers_params
-      params.require(:answer).permit(:text)
+    params.require(:answer).permit(:text)
 	end 
 end

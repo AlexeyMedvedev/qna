@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
@@ -50,12 +49,14 @@ gem 'devise'
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+  #gem 'selenium-webdriver'
+  gem 'pry-byebug'
 end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'launchy'
   gem 'database_cleaner'
+  gem 'capybara-webkit' # вместо силениума используем вебкит
 end
