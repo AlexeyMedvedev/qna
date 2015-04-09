@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class FileUploader < CarrierWave::Uploader::Base
+  delegate :identifier, to: :file #проксируем некрасивую запись во вью file.file.identifier
 
   storage :file
   
