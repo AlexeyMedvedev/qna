@@ -2,6 +2,10 @@
   - if answer.persisted?
     div id="answer-#{answer.id}" class=(answer.accepted == true ? "answer-accept answer" : "answer-regular answer")
       p= answer.text
+      p Attachments:
+      ul
+        - answer.attachments.each do |a|
+          li= link_to a.file.identifier, a.file.url
 
       - if current_user && answer.user_id == current_user.id
         p= link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }

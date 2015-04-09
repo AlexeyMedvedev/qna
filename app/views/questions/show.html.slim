@@ -18,4 +18,8 @@ ul
       = f.label :text, 'Answer'
       .answer-errors
       = f.text_area :text
-      = f.submit 'Add'
+      p
+      = f.fields_for :attachments do |a|
+        = a.label :file
+        = a.file_field :file
+      p= f.submit 'Add'

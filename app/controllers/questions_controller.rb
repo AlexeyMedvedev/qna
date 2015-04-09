@@ -25,6 +25,7 @@ class QuestionsController < ApplicationController
 	def show
       #@question = Question.find(params[:id])
       @answer = @question.answers.new
+      @answer.attachments.build
 	end
 
   def destroy
