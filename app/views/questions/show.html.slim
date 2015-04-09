@@ -3,6 +3,11 @@
 
 h3 Answers
 
+p Attachments:
+ul
+  - @question.attachments.each do |a|
+    li= a.file.file.filename
+
 .answers  
   = render 'answers'
 
