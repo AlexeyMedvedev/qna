@@ -1,13 +1,13 @@
 .question
   = render 'question'
 
-h3 Answers
-
 p Attachments:
 ul
   - @question.attachments.each do |a|
     /li= link_to a.file.file.identifier, a.file.url
     li= link_to a.file.identifier, a.file.url
+
+h3 Answers
 
 .answers  
   = render 'answers'
