@@ -3,9 +3,10 @@
 
 p Attachments:
 ul
-  - @question.attachments.each do |a|
+  - @question.attachments.each do |attach|
     /li= link_to a.file.file.identifier, a.file.url
-    li= link_to a.file.identifier, a.file.url
+    li= link_to attach.file.identifier, attach.file.url
+    
 
 h3 Answers
 
@@ -14,7 +15,7 @@ h3 Answers
 
 - if current_user
   .answer_new
-    = form_for [@question, @answer], remote: true do |f|
+    = nested_form_for [@question, @answer], remote: true do |f|
       = f.label :text, 'Answer'
       .answer-errors
       = f.text_area :text
@@ -22,4 +23,8 @@ h3 Answers
       = f.fields_for :attachments do |a|
         = a.label :file
         = a.file_field :file
+      = f.link_to_add 'Add atachment', :attachments
+
       p= f.submit 'Add'
+
+

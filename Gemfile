@@ -49,6 +49,8 @@ gem 'devise' #авторизация
 gem 'carrierwave' #для прикрепления файлов
 gem 'remotipart' #чтобы загружались файлы в ajax формах
 
+gem "nested_form"
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'

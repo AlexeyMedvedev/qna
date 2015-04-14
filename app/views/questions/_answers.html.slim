@@ -10,10 +10,17 @@
         .answer-best
           p= link_to 'Best', accept_question_answer_path(@question, answer.id), remote: true, method: :post 
         p
-          = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+          = nested_form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
             = f.label :text, "Answer"
             = f.text_area :text
+            p
+            = f.fields_for :attachments do |a|
+              = a.label :file
+              = a.file_field :file
+            = f.link_to_add 'Add atachment', :attachments
+            p
             = f.submit 'Save'
+
 
       - if answer.attachments.any?
         p Attachments:
