@@ -2,7 +2,7 @@
   - if answer.persisted?
     div id="answer-#{answer.id}" class=(answer.accepted == true ? "answer-accept answer" : "answer-regular answer")
       p= answer.text
-
+          
       - if current_user && answer.user_id == current_user.id
         p= link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
         .answer-delete
@@ -10,8 +10,24 @@
         .answer-best
           p= link_to 'Best', accept_question_answer_path(@question, answer.id), remote: true, method: :post 
         p
-          = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+          = nested_form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
             = f.label :text, "Answer"
             = f.text_area :text
+            p
+            = f.fields_for :attachments do |a|
+              = a.label :file
+              = a.file_field :file
+            = f.link_to_add 'Add atachment', :attachments
+            p
             = f.submit 'Save'
-    
+
+
+      - if answer.attachments.any?
+        p Attachments:
+        ul
+          - answer.attachments.each do |attach|
+           div id="attach-#{attach.id}"
+            li= link_to attach.file.identifier, attach.file.url
+            - if current_user && answer.user_id == current_user.id
+              .answer-attach-delete
+                p= link_to 'Delete', attach, remote: true, method: :delete

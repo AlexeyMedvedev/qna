@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
 
   def new
       @question = Question.new
+      @question.attachments.build
 	end
 
 	def create
@@ -24,6 +25,7 @@ class QuestionsController < ApplicationController
 	def show
       #@question = Question.find(params[:id])
       @answer = @question.answers.new
+      @answer.attachments.build
 	end
 
   def destroy
@@ -48,6 +50,6 @@ private
   end
 
   def question_params
-    params.require(:question).permit(:topic, :text)
+    params.require(:question).permit(:topic, :text, attachments_attributes: [:file])
   end
 end

@@ -44,19 +44,24 @@ group :development, :test do
 end
 
 gem 'slim-rails'
-gem 'devise'
+gem 'devise' #авторизация
+
+gem 'carrierwave' #для прикрепления файлов
+gem 'remotipart' #чтобы загружались файлы в ajax формах
+
+gem "nested_form"
 
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
-  #gem 'selenium-webdriver'
   gem 'pry-byebug'
 end
 
 group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
+  #gem 'selenium-webdriver'
   gem 'capybara-webkit' # вместо силениума используем вебкит
 end
