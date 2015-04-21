@@ -50,6 +50,7 @@ gem 'carrierwave' #для прикрепления файлов
 gem 'remotipart' #чтобы загружались файлы в ajax формах
 
 gem "nested_form"
+gem 'jquery-turbolinks'
 
 group :test, :development do
   gem 'rspec-rails'

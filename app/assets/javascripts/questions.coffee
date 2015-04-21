@@ -14,5 +14,8 @@ editQuestionFunction = (e) ->
   # question_id = $(this).data('questionId');
   $('form#edit-question').show();
 
+
+
 $(document).on 'click', '.answers .edit-answer-link', editAnswerFunction
 $(document).on 'click', '.question .edit-question-link', editQuestionFunction
+ 

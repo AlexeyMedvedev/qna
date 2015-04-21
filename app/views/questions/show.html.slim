@@ -15,7 +15,7 @@ h3 Answers
 
 - if current_user
   .answer_new
-    = nested_form_for [@question, @answer], remote: true do |f|
+    = nested_form_for [@question, @answer], remote: true, data: { type: :json } do |f|
       = f.label :text, 'Answer'
       .answer-errors
       = f.text_area :text
