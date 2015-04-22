@@ -15,4 +15,6 @@ class Answer < ActiveRecord::Base
   end
 
   scope :by_best, -> { order('accepted DESC') }
+
+  has_many :votes, as: :votable, dependent: :destroy
 end
